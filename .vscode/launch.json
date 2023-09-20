@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AttApplication<att>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.webarquitetura.att.AttApplication",
+            "projectName": "att",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
