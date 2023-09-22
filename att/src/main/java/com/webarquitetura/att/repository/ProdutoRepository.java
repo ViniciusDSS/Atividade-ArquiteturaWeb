@@ -1,14 +1,25 @@
-package com.webarquitetura.att.entities;
+package com.webarquitetura.att.repository;
 
-public class Produtos {
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tbl_produtos")
+public class ProdutoRepository {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_produto;
     private String prod_nome;
     private int prod_qtd;
 
-    private Categorias categorias;
+    private CategoriaProdutoRepository categorias;
 
-    public Produtos(){
+    public ProdutoRepository(){
         
     }
 
@@ -36,11 +47,11 @@ public class Produtos {
         this.prod_qtd = prod_qtd;
     }
 
-    public Categorias getCategorias() {
+    public CategoriaProdutoRepository getCategorias() {
         return categorias;
     }
 
-    public void setCategorias(Categorias categorias) {
+    public void setCategorias(CategoriaProdutoRepository categorias) {
         this.categorias = categorias;
     }
 

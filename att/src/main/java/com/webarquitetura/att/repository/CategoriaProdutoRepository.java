@@ -1,13 +1,22 @@
-package com.webarquitetura.att.entities;
+package com.webarquitetura.att.repository;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-public class Categorias {
+@Entity
+@Table(name = "tbl_categoria")
+public class CategoriaProdutoRepository {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_categoria;
     private String cat_nome;
     private String cat_descricao;
 
-    public Categorias() {
+    public CategoriaProdutoRepository() {
         
     }
 
