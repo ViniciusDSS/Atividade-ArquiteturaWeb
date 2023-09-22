@@ -1,58 +1,51 @@
 package com.webarquitetura.att.repository;
 
+import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-@Entity
-@Table(name = "tbl_produtos")
+import com.webarquitetura.att.models.Produto;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
+
+@Repository
 public class ProdutoRepository {
+
+    @Autowired
+    private EntityManager entityManager;
+
+    @Transactional
+    public Produto inserir (Produto produto) {
+        entityManager.merge(produto);
+        return produto;
+    }
+
+    @Transactional
+    public Produto editar (Produto produto) {
+        entityManager.merge(produto);
+        return produto;
+    }
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_produto;
-    private String prod_nome;
-    private int prod_qtd;
-
-    private CategoriaProdutoRepository categorias;
-
-    public ProdutoRepository(){
-        
+    @Transactional
+    public void delete (Produto produto) {
+        entityManager.remove(produto);
     }
 
-    public Long getId_produto() {
-        return id_produto;
+    @Transactional
+    public List<Produto> consultarProdutos (){
+        return entityManager.createQuery("from Produto", Produto.class).getResultList();
     }
 
-    public void setId_produto(Long id_produto) {
-        this.id_produto = id_produto;
-    }
-
-    public String getProd_nome() {
-        return prod_nome;
-    }
-
-    public void setProd_nome(String prod_nome) {
-        this.prod_nome = prod_nome;
-    }
-
-    public int getProd_qtd() {
-        return prod_qtd;
-    }
-
-    public void setProd_qtd(int prod_qtd) {
-        this.prod_qtd = prod_qtd;
-    }
-
-    public CategoriaProdutoRepository getCategorias() {
-        return categorias;
-    }
-
-    public void setCategorias(CategoriaProdutoRepository categorias) {
-        this.categorias = categorias;
+    @Transactional
+    public List<Produto> consultarPorId(String id_produto){
+        String sql = "SELECT c FROM tbl_produtos c WHERE c.id_produto like :id_produto";
+        TypedQuery<Produto> query = entityManager.createQuery(sql, Produto.class);
+        query.setParameter("id_produto","%"+id_produto+"%");
+        return query.getResultList();
     }
 
 }
+ 
