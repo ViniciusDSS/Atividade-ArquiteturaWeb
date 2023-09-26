@@ -1,6 +1,5 @@
 package com.webarquitetura.att.models;
 
-import com.webarquitetura.att.repository.CategoriaProdutoRepository;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +13,13 @@ import jakarta.persistence.Table;
 @Table(name = "tbl_produtos")
 public class Produto {
     
+    public Produto(Long id_produto, String prod_nome, Double prod_preco, Categoria categorias) {
+        this.id_produto = id_produto;
+        this.prod_nome = prod_nome;
+        this.prod_preco = prod_preco;
+        this.categorias = categorias;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_produto;
@@ -22,7 +28,7 @@ public class Produto {
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")
-    private CategoriaProdutoRepository categorias;
+    private Categoria categorias;
 
     public Produto(){
         
@@ -52,11 +58,11 @@ public class Produto {
         this.prod_preco = prod_preco;
     }
 
-    public CategoriaProdutoRepository getCategorias() {
+    public Categoria getCategorias() {
         return categorias;
     }
 
-    public void setCategorias(CategoriaProdutoRepository categorias) {
+    public void setCategorias(Categoria categorias) {
         this.categorias = categorias;
     }
 

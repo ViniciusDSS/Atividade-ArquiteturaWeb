@@ -1,18 +1,16 @@
 package com.webarquitetura.att.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.webarquitetura.att.models.Produto;
 import com.webarquitetura.att.repository.ProdutoRepository;
 
 @RestController
-@RequestMapping(value = "/Produto")
+@RequestMapping(value = "/produtos")
 public class ProdutoController {
 
     @Autowired
@@ -20,14 +18,12 @@ public class ProdutoController {
 
     @GetMapping
     public List<Produto> findAll(){
-       List<Produto> result = produtoRepository.findAll();
-       return result;
+       return produtoRepository.findAll();
     }
 
     @GetMapping(value = "/{id}")
     public Produto findById(@PathVariable Long id){
-       Produto result = produtoRepository.findById(id).get();
-       return result;
+       Optional<Produto> optionalProduto = produtoRepository.findById(id);
+       return optionalProduto.orElse(null); // Ou uma resposta de erro apropriada
     }
-    
 }
