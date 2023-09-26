@@ -21,9 +21,14 @@ public class ProdutoController {
        return produtoRepository.findAll();
     }
 
+    @GetMapping(value = "precomaior")
+    public List<Produto> findProdutosComPrecoMaiorQue(Double valor) {
+    return produtoRepository.findByPrecoGreaterThan(valor);
+  }
+
     @GetMapping(value = "/{id}")
     public Produto findById(@PathVariable Long id){
        Optional<Produto> optionalProduto = produtoRepository.findById(id);
-       return optionalProduto.orElse(null); // Ou uma resposta de erro apropriada
+       return optionalProduto.orElse(null); // resposta de erro apropriada
     }
 }

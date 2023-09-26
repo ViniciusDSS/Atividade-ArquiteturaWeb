@@ -16,7 +16,7 @@ public class Produto {
     public Produto(Long id_produto, String prod_nome, Double prod_preco, Categoria categorias) {
         this.id_produto = id_produto;
         this.prod_nome = prod_nome;
-        this.prod_preco = prod_preco;
+        this.preco = prod_preco;
         this.categorias = categorias;
     }
 
@@ -24,7 +24,7 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_produto;
     private String prod_nome;
-    private Double prod_preco;
+    private Double preco;
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")
@@ -50,12 +50,12 @@ public class Produto {
         this.prod_nome = prod_nome;
     }
 
-    public Double getProd_preco() {
-        return prod_preco;
+    public Double getPreco() {
+        return preco;
     }
 
-    public void setProd_preco(Double prod_preco) {
-        this.prod_preco = prod_preco;
+    public void setPreco(Double prod_preco) {
+        this.preco = prod_preco;
     }
 
     public Categoria getCategorias() {
