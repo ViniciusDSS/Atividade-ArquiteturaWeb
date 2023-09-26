@@ -8,4 +8,5 @@ import com.webarquitetura.att.models.Categoria;
 @Repository
 public interface CategoriaProdutoRepository extends JpaRepository<Categoria, Long>{
 
+
 }
