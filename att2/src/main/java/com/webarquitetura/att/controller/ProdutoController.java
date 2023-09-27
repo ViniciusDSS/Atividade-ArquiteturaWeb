@@ -21,12 +21,22 @@ public class ProdutoController {
        return produtoRepository.findAll();
     }
 
-    @GetMapping(value = "precomaior")
+   @GetMapping(value = "/precomenor/{valor}")
+    public List<Produto> findProdutosComPrecoMenorQue(@PathVariable Double valor) {
+    return produtoRepository.findByPrecoLessThan(valor);
+   }
+
+    @GetMapping(value ="/nome/{nome}")
+    public List<Produto> encontrarPorNome(@PathVariable String nome) {
+      return produtoRepository.findByNome(nome);
+    }
+
+    @GetMapping(value = "/precomaior/{valor}")
     public List<Produto> findProdutosComPrecoMaiorQue(Double valor) {
     return produtoRepository.findByPrecoGreaterThan(valor);
   }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/id/{id}")
     public Produto findById(@PathVariable Long id){
        Optional<Produto> optionalProduto = produtoRepository.findById(id);
        return optionalProduto.orElse(null); // resposta de erro apropriada

@@ -13,9 +13,9 @@ import jakarta.persistence.Table;
 @Table(name = "tbl_produtos")
 public class Produto {
     
-    public Produto(Long id_produto, String prod_nome, Double prod_preco, Categoria categorias) {
+    public Produto(Long id_produto, String nome, Double prod_preco, Categoria categorias) {
         this.id_produto = id_produto;
-        this.prod_nome = prod_nome;
+        this.nome = nome;
         this.preco = prod_preco;
         this.categorias = categorias;
     }
@@ -23,7 +23,7 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_produto;
-    private String prod_nome;
+    private String nome;
     private Double preco;
 
     @ManyToOne
@@ -42,12 +42,12 @@ public class Produto {
         this.id_produto = id_produto;
     }
 
-    public String getProd_nome() {
-        return prod_nome;
+    public String getNome() {
+        return nome;
     }
 
-    public void setProd_nome(String prod_nome) {
-        this.prod_nome = prod_nome;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public Double getPreco() {

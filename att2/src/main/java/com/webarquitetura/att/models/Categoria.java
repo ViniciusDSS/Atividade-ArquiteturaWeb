@@ -11,16 +11,16 @@ import jakarta.persistence.Table;
 public class Categoria {
 
     
-    public Categoria(Long id_categoria, String cat_nome) {
+    public Categoria(Long id_categoria, String nome) {
         this.id_categoria = id_categoria;
-        this.cat_nome = cat_nome;
+        this.nome = nome;
     }
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_categoria;
-    private String cat_nome;
+    private String nome;
     
 
     public Categoria() {
@@ -38,13 +38,13 @@ public class Categoria {
     }
 
 
-    public String getCat_nome() {
-        return cat_nome;
+    public String getNome() {
+        return nome;
     }
 
 
-    public void setCat_nome(String cat_nome) {
-        this.cat_nome = cat_nome;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
 }
