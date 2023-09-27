@@ -24,6 +24,7 @@ public class AttApplication {
             repository.findByNome("relogio");
 
             caterepository.findByNome("relogio");
+            caterepository.findByIdWithProduto((long) 2);
 
         };
     }
