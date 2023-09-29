@@ -13,10 +13,10 @@ import jakarta.persistence.Table;
 @Table(name = "tbl_produtos")
 public class Produto {
     
-    public Produto(Long id_produto, String nome, Double prod_preco, Categoria categorias) {
+    public Produto(Long id_produto, String nome, Double preco, Categoria categorias) {
         this.id_produto = id_produto;
         this.nome = nome;
-        this.preco = prod_preco;
+        this.preco = preco;
         this.categorias = categorias;
     }
 
@@ -30,7 +30,7 @@ public class Produto {
     @JoinColumn(name = "id_categoria")
     private Categoria categorias;
 
-    public Produto(){
+    public Produto(long l, String string, Double i){
         
     }
 

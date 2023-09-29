@@ -1,5 +1,7 @@
 package com.webarquitetura.att.models;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +18,7 @@ public class Categoria {
         this.nome = nome;
     }
 
+    private List<Produto> produto;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +48,15 @@ public class Categoria {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+
+    public List<Produto> getProduto() {
+        return produto;
+    }
+
+    public void setProdutos(List<Produto> produto) {
+        this.produto = produto;
     }
     
 }

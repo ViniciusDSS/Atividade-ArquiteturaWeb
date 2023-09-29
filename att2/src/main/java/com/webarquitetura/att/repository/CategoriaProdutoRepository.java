@@ -18,4 +18,10 @@ public interface CategoriaProdutoRepository extends JpaRepository<Categoria, Lon
 
     @Query("SELECT c FROM Categoria c LEFT JOIN FETCH c.produtos WHERE c.id_categoria = :id_categoria")
     Optional<Categoria> findByIdWithProduto(@Param("id_categoria") Long id_categoria);
+
+
+    List<Categoria> findByNomeStartingWith(@Param("nome") String nome);
+
+    @Query("select cc from Categoria cc left join fetch cc.produto c where cc.id = :id ")
+    Categoria findCategoriaFetchProduto(@Param("id") Long id);
 }
