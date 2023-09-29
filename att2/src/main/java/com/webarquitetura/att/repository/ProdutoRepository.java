@@ -19,7 +19,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long>{
     @Query("SELECT p FROM Produto p WHERE p.preco <= :valor")
     List<Produto> findByPrecoLessThan(@Param("valor") Double valor);
 
-    List<Produto> findByNome(String nome);
+    List<Produto> findByNomeLike(String nome);
 
 }
  

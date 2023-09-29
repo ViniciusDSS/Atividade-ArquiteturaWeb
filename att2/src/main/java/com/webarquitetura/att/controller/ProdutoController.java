@@ -28,7 +28,7 @@ public class ProdutoController {
 
     @GetMapping(value ="/nome/{nome}")
     public List<Produto> encontrarPorNome(@PathVariable String nome) {
-      return produtoRepository.findByNome(nome);
+      return produtoRepository.findByNomeLike(nome);
     }
 
     @GetMapping(value = "/precomaior/{valor}")

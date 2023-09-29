@@ -21,7 +21,7 @@ public class AttApplication {
 
             repository.findByPrecoGreaterThan(20.0);
             repository.findByPrecoLessThan(50.0);
-            repository.findByNome("relogio");
+            repository.findByNomeLike("relogio");
 
             caterepository.findByNome("relogio");
             caterepository.findByIdWithProduto((long) 2);
