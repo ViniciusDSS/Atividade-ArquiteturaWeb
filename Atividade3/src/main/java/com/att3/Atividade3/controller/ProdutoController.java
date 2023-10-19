@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.att3.Atividade3.dtos.DadosProdutoDTO;
 import com.att3.Atividade3.dtos.ProdutoDTO;
+import com.att3.Atividade3.models.Produto;
 import com.att3.Atividade3.services.ProdutoServices;
 
 @RestController
@@ -33,7 +34,7 @@ public class ProdutoController {
     return produtoServices.salvar(produtoDTO).getId();
  }   
     
- @GetMapping
+ @GetMapping("{id}")
  public DadosProdutoDTO obterPorId(@PathVariable Integer id) {  
         return produtoServices.obterPorId(id); 
 }
@@ -43,7 +44,7 @@ public List<ProdutoDTO> listarTodos() {
     return produtoServices.listarTodos();
 }
 
-@DeleteMapping
+@DeleteMapping("{id}")
 @ResponseStatus(HttpStatus.NO_CONTENT)
 public void delet(@PathVariable Integer id) {
     produtoServices.excluir(id);

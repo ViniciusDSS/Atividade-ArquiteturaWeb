@@ -12,8 +12,10 @@ import com.att3.Atividade3.models.Produto;
 import com.att3.Atividade3.repository.CategoriaProdutoRepository;
 import com.att3.Atividade3.repository.ProdutoRepository;
 
+import lombok.RequiredArgsConstructorArgs;
+
+@RequiredArgsConstructorArgs
 @Service
-@RequiredArgsConstructor
 public interface ProdutoServiceIMPL implements ProdutoServices {
     
     private final ProdutoRepository produtoRepository;
