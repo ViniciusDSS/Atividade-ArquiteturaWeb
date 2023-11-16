@@ -13,45 +13,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.att3.Atividade3.dtos.DadosProdutoDTO;
-import com.att3.Atividade3.dtos.ProdutoDTO;
-import com.att3.Atividade3.models.Produto;
-import com.att3.Atividade3.services.ProdutoServices;
+import com.example.tarefa_3_tratando_erros.dtos.DadosProdutoDTO;
+import com.example.tarefa_3_tratando_erros.dtos.ProdutoDTO;
+import com.example.tarefa_3_tratando_erros.services.ProdutoService;
 
 @RestController
-@RequestMapping("/api/produto")
+@RequestMapping("/api/produtos")
 public class ProdutoController {
-    
-    private ProdutoServices produtoServices;
+    private ProdutoService produtoService;
 
-    public ProdutoController(ProdutoServices produtoServices) {
-        this.produtoServices = produtoServices;
-    } 
-    
- @PostMapping
- @ResponseStatus(HttpStatus.CREATED)
- public Integer inserir(@RequestBody ProdutoDTO produtoDTO){
-    return produtoServices.salvar(produtoDTO).getId();
- }   
-    
- @GetMapping("{id}")
- public DadosProdutoDTO obterPorId(@PathVariable Integer id) {  
-        return produtoServices.obterPorId(id); 
-}
+    public ProdutoController(ProdutoService produtoService){
+        this.produtoService = produtoService;
+    }
 
-@GetMapping
-public List<ProdutoDTO> listarTodos() {
-    return produtoServices.listarTodos();
-}
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public int insert(@RequestBody ProdutoDTO produtoDTO){
+        return produtoService.salvar(produtoDTO).getId();
+    }
 
-@DeleteMapping("{id}")
-@ResponseStatus(HttpStatus.NO_CONTENT)
-public void delet(@PathVariable Integer id) {
-    produtoServices.excluir(id);
-}
+    @GetMapping
+    public List<ProdutoDTO> listarTodos(){
+        return produtoService.listAll();
+    }
 
-@PutMapping("{id}")
-public void edit(@PathVariable Integer id, @RequestBody ProdutoDTO dto){
-    produtoServices.editar(id, dto);
-    } 
+    @GetMapping("{id}")
+    public DadosProdutoDTO getById(@PathVariable Integer id){
+        return produtoService.obtainById(id);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable Integer id){
+        produtoService.delete(id);
+    }
+
+    @PutMapping("{id}")
+    public void edit(@PathVariable Integer id, @RequestBody ProdutoDTO dto){
+        produtoService.update(id, dto);
+    }
 }

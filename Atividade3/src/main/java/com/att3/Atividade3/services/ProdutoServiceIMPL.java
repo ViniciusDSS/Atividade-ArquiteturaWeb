@@ -1,6 +1,8 @@
 package com.att3.Atividade3.services;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -12,79 +14,89 @@ import com.att3.Atividade3.models.Produto;
 import com.att3.Atividade3.repository.CategoriaProdutoRepository;
 import com.att3.Atividade3.repository.ProdutoRepository;
 
-import lombok.RequiredArgsConstructorArgs;
+import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructorArgs
 @Service
+@RequiredArgsConstructor
 public interface ProdutoServiceIMPL implements ProdutoServices {
     
     private final ProdutoRepository produtoRepository;
     private final CategoriaProdutoRepository categoriaProdutoRepository;
-
+    
     @Override
-    public Produto salvar (ProdutoDTO produtoDTO) {  
-        categoriaProduto categ = categoriaProdutoRepository.findByid(
-                produtoDTO.getCategoriaProdutoDTOId()).orElseThrow(
-                    () -> new RegraNegocioException("Codigo da categoria não encontrado."));
+    public Produto salvar(ProdutoDTO produtoDTO) {
+        CategoriaProduto categoriaProduto = categoriaProdutoRepository.findById(
+            produtoDTO.getId_categoriaProd()).orElseThrow(
+                () -> new RegraNegocioException("Código da categoria não foi encontrado!")
+        );
 
         Produto p = new Produto();
+        p.setCategoriaProduto(categoriaProduto);
         p.setNome(produtoDTO.getNome());
-        p.setPreco(produtoDTO.getPreco())
+        p.setPreco(produtoDTO.getPreco());
+
         return produtoRepository.save(p);
     }
 
-    public List<ProdutoDTO> listarTodos() {
-        List<ProdutoDTO> produto = produtoRepository.findAll().stream().map(
+    @Override
+    public List<ProdutoDTO> listAll() {
+        List<ProdutoDTO> produtos = produtoRepository.findAll().stream().map(
             (Produto p) -> {
                 return ProdutoDTO.builder()
-                                 .id(p.getId())
-                                 .name(p.getNome())
-                                 .preco(p.getPreco())
-                                 .categoriaProdutoId(p.getCategoriaProduto() == null ? 0
-                                                                            : p.getCategoriaProduto().getId())
-                                 .build();                                                                             
-                    }).collect(Collectors.toList());
-            return produto;
+                .id(p.getId())
+                .nome(p.getNome())
+                .preco(p.getPreco())
+                .id_categoriaProd(p.getCategoriaProduto() != null ? p.getCategoriaProduto().getId_categoria(): 0)
+                .build();
+            }
+        ).collect(Collectors.toList());
+
+        return produtos;
     }
 
     @Override
-    public DadosProdutoDTO obterPorId(Integer id) {
-        return produtoRepository.findById(id).map((Produto p) ->{
-            return ProdutoDTO.builder()
-                             .Id(p.getId())
-                             .name(p.getNome())
-                             .preco(p.getPreco())
-                             .categoria(p.getCategoriaProduto() != null ? CategoriaProdutoDTO.builder()
-                                         .id(p.getCategoriaProduto().getId())
-                                         .nome(p.getCategoriaProduto().getNome())
-                                         .build() : null)
-                            .build();
-                })
-                            .orElseThrow(
-                                () -> new RegraNegociosExceptions("Id do Produto não encontrado"));
-                                  
-        }
-    
+    public DadosProdutoDTO obtainById(Integer id) {
+        return produtoRepository.findById(id).map(
+            (Produto p) -> {
+                return 
+                    DadosProdutoDTO.builder()
+                    .id(p.getId())
+                    .nome(p.getNome())
+                    .preco(p.getPreco())
+                    .categoria(
+                        p.getCategoriaProduto() != null ?
+                        CategoriaProdutoDTO.builder()
+                        .id_categoria(p.getCategoriaProduto().getId_categoria())
+                        .name(p.getCategoriaProduto().getName())
+                        .build() : null
+                ).build();
+            }
+        ).orElseThrow(
+            () -> new RegraNegocioException("Produto não encontrado com o ID Fornecido!")
+        );
+    }
+
     @Override
-    public void excluir(Integer id) {
+    @Transactional
+    public void delete(Integer id) {
         produtoRepository.deleteById(id);
     }
-    
-    @Override
-    public void editar(Integer id, ProdutoDTO dta) {
-        Produto produto = produtoRepository.findById(id);
-                           .orElseThrow(() -> new RegraNegociosExceptions("Produto não encontrado"));
-   
-        CategoriaProduto categoriaProduto = categoriaProdutoRepository.findById(dto.getCategoriaProdutoId())
-                         .orElseThrow(() -> new RegraNegociosExceptions("Categoria não encontrado"));
-                         
-                         produto.setNome(dto.getNome());
-                         produto.setPreco(dto.getPreco());
-                         produto.setCategoriaProduto(categoriaProduto);
-                         produtoRepository.save(produto);
 
-                    }
-        
+    @Override
+    public void update(Integer id, ProdutoDTO dto) {
+        Produto produto = produtoRepository.findById(id).orElseThrow(
+            () -> new RegraNegocioException("Código usuário não encontrado."));
+
+        CategoriaProduto categoriaProduto = categoriaProdutoRepository.findById(dto.getId_categoriaProd())
+        .orElseThrow(
+            () -> new RegraNegocioException("Categoria não Encontrada.")
+        );
+
+        produto.setNome(dto.getNome());
+        produto.setPreco(dto.getPreco());
+        produto.setCategoriaProduto(categoriaProduto);
+        produtoRepository.save(produto);
+    }
 }   
 
 

@@ -1,16 +1,15 @@
 package com.att3.Atividade3.dtos;
 
-import com.att3.Atividade3.models.AllArgsConstructor;
-import com.att3.Atividade3.models.Builder;
-import com.att3.Atividade3.models.Data;
-import com.att3.Atividade3.models.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
 public class DadosProdutoDTO {
-    
     private Integer id;
     private String nome;
     private double preco;

@@ -7,15 +7,10 @@ import com.att3.Atividade3.dtos.ProdutoDTO;
 import com.att3.Atividade3.models.Produto;
 
 public interface ProdutoServices {
-
-    Produto salvar(ProdutoDTO produtoDTO);
-
-    List<ProdutoDTO> listarTodos();
-
-    DadosProdutoDTO obterPorId(Integer id);
-
-    void excluir(Integer id);
-
-    void editar(Integer id, ProdutoDTO dto);
+        Produto salvar(ProdutoDTO produtoDTO);
+        List<ProdutoDTO> listAll();
+        DadosProdutoDTO obtainById(Integer id);
+        void delete(Integer id);
+        void update(Integer id, ProdutoDTO dto);
+    }
     
-} 
